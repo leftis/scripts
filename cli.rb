@@ -4,15 +4,15 @@ require "thor"
 require "dparser"
 
 class MyCLI < Thor
-  desc "url HTTP_URL", "parse given url"
-  def url(url)
-    domain = Dparser.new url
+  desc "url HTTP_URL --headings --images --links", "parse given url"
+  option :images, type: :boolean
+  option :headings, type: :boolean
+  option :links, type: :boolean
 
-    # theloume
-    # 1on na min skaei
-    # 2on tha ekanei parse to url http://nokogiri.org/tutorials/parsing_an_html_xml_document.html
-    # 3on tha psaxnei an iparxei h1 kai tha to ektipwnei
-    domain.parse!
+  def url(url)
+    domain = Dparser.new(url, options)
+    puts domain.options
+    document = domain.parse!
   end
 end
 
